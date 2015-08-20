@@ -1,8 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.4"
-  - "pypy"
 install:
   - pip install ply==3.6
 script: nosetests

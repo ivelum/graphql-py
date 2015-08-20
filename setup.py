@@ -17,7 +17,7 @@ setup(
     name='qraphql-py',
     version=graphql.__version__,
     description='graphql-py: Parser for latest GraphQL specification',
-    long_description=open('readme.md').read(),
+    long_description=open('README.rst').read(),
     author='Denis Stebunov',
     author_email='support@ivelum.com',
     url='https://github.com/ivelum/graphql-py/',

@@ -1,0 +1,20 @@
+*.py[cod]
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# PyCharm
+.idea
+
+.DS_Store

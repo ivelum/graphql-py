@@ -38,7 +38,7 @@ Usage
       }
     }
     """)
-    print ast 
+    print(ast) 
 
 Work in progress
 ----------------

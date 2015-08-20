@@ -14,7 +14,7 @@ packages = ['graphql']
 requires = ['ply>=3.6']
 
 setup(
-    name='qraphql-py',
+    name='graphql-py',
     version=graphql.__version__,
     description='graphql-py: Parser for latest GraphQL specification',
     long_description=open('README.rst').read(),

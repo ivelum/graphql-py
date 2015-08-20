@@ -8,7 +8,7 @@ GraphQL lexer and parser written in Python, produces AST. Features:
 
 * Complies with latest `working draft of GraphQL specification`_;
 * Fast enough, built on `PLY`_;
-* Tested vs. Python 2.7 (Python 3 support is planned).
+* Tested vs. Python 2.7, 3.4 and PyPy
 
 .. _working draft of GraphQL specification: https://facebook.github.io/graphql/
 .. _PLY: http://www.dabeaz.com/ply/

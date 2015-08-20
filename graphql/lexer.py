@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from decimal import Decimal
 
 import ply.lex as lex
@@ -62,19 +63,19 @@ class GraphQLLexer(object):
             return t.lexpos + 1
         return t.lexpos - cr
 
-    whitespace = u' \t\v\f\u00A0'
-    line_terminators = u'\n\r\u2028\u2029'
-    comma = u','
+    whitespace = ' \t\v\f\u00A0'
+    line_terminators = '\n\r\u2028\u2029'
+    comma = ','
 
-    re_line_terminators = ur'\n\r\u2028\u2029'
+    re_line_terminators = r'\n\r\u2028\u2029'
 
-    re_escaped_char = ur'\\[\"\\/bfnrt]'
-    re_escaped_unicode = ur'\\u[0-9A-Fa-f]{4}'
-    re_string_char = ur'[^\"\\' + re_line_terminators + u']'
+    re_escaped_char = r'\\[\"\\/bfnrt]'
+    re_escaped_unicode = r'\\u[0-9A-Fa-f]{4}'
+    re_string_char = r'[^\"\\' + re_line_terminators + u']'
 
-    re_int_value = ur'(-?0|-?[1-9][0-9]*)'
-    re_fraction_part = ur'\.[0-9]+'
-    re_exponent_part = ur'[eE][\+-]?[0-9]+'
+    re_int_value = r'(-?0|-?[1-9][0-9]*)'
+    re_fraction_part = r'\.[0-9]+'
+    re_exponent_part = r'[eE][\+-]?[0-9]+'
 
     tokens = [
         'NAME',
@@ -102,35 +103,35 @@ class GraphQLLexer(object):
         'SPREAD',
     ]
 
-    t_BANG = u'!'
-    t_DOLLAR = ur'\$'
-    t_PAREN_L = ur'\('
-    t_PAREN_R = ur'\)'
-    t_COLON = u':'
-    t_EQUALS = u'='
-    t_AT = u'@'
-    t_BRACKET_L = ur'\['
-    t_BRACKET_R = ur'\]'
-    t_BRACE_L = ur'\{'
-    t_BRACE_R = ur'\}'
-    t_SPREAD = ur'\.\.\.'
+    t_BANG = '!'
+    t_DOLLAR = r'\$'
+    t_PAREN_L = r'\('
+    t_PAREN_R = r'\)'
+    t_COLON = ':'
+    t_EQUALS = '='
+    t_AT = '@'
+    t_BRACKET_L = r'\['
+    t_BRACKET_R = r'\]'
+    t_BRACE_L = r'\{'
+    t_BRACE_R = r'\}'
+    t_SPREAD = r'\.\.\.'
 
-    t_NAME = ur'[_A-Za-z][_0-9A-Za-z]*'
+    t_NAME = r'[_A-Za-z][_0-9A-Za-z]*'
 
     t_ignore = whitespace + comma
 
-    @TOKEN(ur'\#[^' + re_line_terminators + u']*')
+    @TOKEN(r'\#[^' + re_line_terminators + ']*')
     def t_COMMENT(self, t):
         return  # return nothing, ignore comments
 
-    @TOKEN(ur'\"(' + re_escaped_char +
-           u'|' + re_escaped_unicode +
-           u'|' + re_string_char + ur')*\"')
+    @TOKEN(r'\"(' + re_escaped_char +
+           '|' + re_escaped_unicode +
+           '|' + re_string_char + r')*\"')
     def t_STRING_VALUE(self, t):
         return t
 
-    @TOKEN(re_int_value + re_fraction_part + re_exponent_part + u'|' +
-           re_int_value + re_fraction_part + u'|' +
+    @TOKEN(re_int_value + re_fraction_part + re_exponent_part + '|' +
+           re_int_value + re_fraction_part + '|' +
            re_int_value + re_exponent_part)
     def t_FLOAT_VALUE(self, t):
         t.value = Decimal(t.value)
@@ -142,42 +143,42 @@ class GraphQLLexer(object):
         return t
 
     def t_FRAGMENT(self, t):
-        u'fragment'
+        'fragment'
         return t
 
     def t_QUERY(self, t):
-        u'query'
+        'query'
         return t
 
     def t_MUTATION(self, t):
-        u'mutation'
+        'mutation'
         return t
 
     def t_ON(self, t):
-        u'on'
+        'on'
         return t
 
     def t_TRUE(self, t):
-        u'true'
+        'true'
         return t
 
     def t_FALSE(self, t):
-        u'false'
+        'false'
         return t
 
     def t_NULL(self, t):
-        u'null'
+        'null'
         return t
 
     def t_error(self, t):
         raise LexerError(
-            message=u"Illegal character %s" % repr(t.value[0]),
+            message='Illegal character %s' % repr(t.value[0]),
             value=t.value,
             line=t.lineno,
             column=self.find_column(t),
         )
 
-    @TOKEN(u'[' + re_line_terminators + u']+')
+    @TOKEN('[' + re_line_terminators + ']+')
     def t_newline(self, t):
         t.lexer.lineno += len(t.value)
         return

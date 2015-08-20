@@ -6,13 +6,14 @@ class ParseError(Exception):
         super(ParseError, self).__init__(message)
 
     def __str__(self):
+        message = super(ParseError, self).__str__()
         if self.line:
             position_info = 'Line %s' % self.line
             if self.column:
                 position_info += ', col %s' % self.column
-            return '%s: %s' % (position_info, self.message)
+            return '%s: %s' % (position_info, message)
         else:
-            return self.message
+            return message
 
 
 class LexerError(ParseError):

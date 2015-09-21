@@ -49,6 +49,24 @@ class GraphQLParser(object):
         """
         p[0] = Document(definitions=[Query(selections=p[1])])
 
+    def p_document_shorthand_with_fragments(self, p):
+        """
+        document : selection_set fragment_list
+        """
+        p[0] = Document(definitions=[Query(selections=p[1])] + p[2])
+
+    def p_fragment_list(self, p):
+        """
+        fragment_list : fragment_list fragment_definition
+        """
+        p[0] = p[1] + [p[2]]
+
+    def p_fragment_list_single(self, p):
+        """
+        fragment_list : fragment_definition
+        """
+        p[0] = [p[1]]
+
     def p_definition_list(self, p):
         """
         definition_list : definition_list definition

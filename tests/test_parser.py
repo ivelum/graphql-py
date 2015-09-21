@@ -111,3 +111,34 @@ class GraphQLParseTest(TestCase):
                 ])
             ])
         )
+
+    def test_shorthand_query_with_fragments(self):
+        self.assertEqual(
+            self.parser.parse("""
+                {
+                  hero {
+                    name
+                    ...DroidFields
+                  }
+                }
+
+                fragment DroidFields on Droid {
+                  primaryFunction
+                }
+            """),
+            Document(definitions=[
+                Query(selections=[
+                    Field(
+                        name='hero',
+                        selections=[
+                            Field(name='name'),
+                            FragmentSpread(name='DroidFields'),
+                        ]
+                    ),
+                ]),
+                FragmentDefinition(type_condition=NamedType(name='Droid'),
+                    name='DroidFields',
+                    selections=[Field(name='primaryFunction')]
+                ),
+            ])
+        )

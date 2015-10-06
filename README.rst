@@ -4,7 +4,7 @@ graphql-py
 .. image:: https://travis-ci.org/ivelum/graphql-py.svg?branch=master
         :target: https://travis-ci.org/ivelum/graphql-py
 
-GraphQL lexer and parser written in Python, produces AST. Features:
+GraphQL lexer and parser written in pure Python, produces AST. Features:
 
 * Complies with latest `working draft of GraphQL specification`_;
 * Fast enough, built on `PLY`_;
@@ -26,7 +26,7 @@ Usage
 .. code:: shell
 
     from graphql.parser import GraphQLParser
-    
+
     parser = GraphQLParser()
     ast = parser.parse("""
     {
@@ -38,11 +38,9 @@ Usage
       }
     }
     """)
-    print(ast) 
+    print(ast)
 
-Work in progress
-----------------
+License
+-------
 
-Next I plan to add schema definition and provide a layer for binding real 
-applications logic, so we can have a fully-functional GraphQL server. Django
-support is also planned, probably as a separate package.
+MIT

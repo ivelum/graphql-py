@@ -142,32 +142,34 @@ class GraphQLLexer(object):
         t.value = int(t.value)
         return t
 
+    not_followed_by_name = '(?![_0-9A-Za-z])'
+
+    @TOKEN('fragment' + not_followed_by_name)
     def t_FRAGMENT(self, t):
-        'fragment'
         return t
 
+    @TOKEN('query' + not_followed_by_name)
     def t_QUERY(self, t):
-        'query'
         return t
 
+    @TOKEN('mutation' + not_followed_by_name)
     def t_MUTATION(self, t):
-        'mutation'
         return t
 
+    @TOKEN('on' + not_followed_by_name)
     def t_ON(self, t):
-        'on'
         return t
 
+    @TOKEN('true' + not_followed_by_name)
     def t_TRUE(self, t):
-        'true'
         return t
 
+    @TOKEN('false' + not_followed_by_name)
     def t_FALSE(self, t):
-        'false'
         return t
 
+    @TOKEN('null' + not_followed_by_name)
     def t_NULL(self, t):
-        'null'
         return t
 
     def t_error(self, t):

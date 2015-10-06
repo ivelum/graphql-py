@@ -46,6 +46,9 @@ class GraphQLLexerTest(TestCase):
                     'true', 'false', 'null')
         for word in reserved:
             self.assert_output(self.lexer.input(word), [(word.upper(), word)])
+        # A word made of reserved words should be treated as a name
+        for word in ('queryType', 'mutation42', '_truefalse'):
+            self.assert_output(self.lexer.input(word), [('NAME', word)])
 
     def test_int(self):
         for val in ('0', '-0', '42', '-42'):

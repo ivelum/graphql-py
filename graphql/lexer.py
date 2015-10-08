@@ -128,6 +128,7 @@ class GraphQLLexer(object):
            '|' + re_escaped_unicode +
            '|' + re_string_char + r')*\"')
     def t_STRING_VALUE(self, t):
+        t.value = t.value[1:-1]  # cut leading and trailing quotes ""
         return t
 
     @TOKEN(re_int_value + re_fraction_part + re_exponent_part + '|' +

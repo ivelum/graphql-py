@@ -68,7 +68,7 @@ class GraphQLParseTest(TestCase):
                 }
 
                 fragment standardProfilePic on User {
-                  profilePic(size: 50)
+                  profilePic(size: "small")
                 }
             """),
             Document(definitions=[
@@ -106,7 +106,7 @@ class GraphQLParseTest(TestCase):
                     name='standardProfilePic',
                     selections=[
                         Field(name='profilePic',
-                            arguments=[Argument(name='size', value=50)]
+                            arguments=[Argument(name='size', value='small')]
                         )
                 ])
             ])

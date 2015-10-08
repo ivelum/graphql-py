@@ -66,7 +66,10 @@ class GraphQLLexerTest(TestCase):
 
     def test_string(self):
         for s in ('""', u'""', '"42"', r'"\t\n\u0042 ^"'):
-            self.assert_output(self.lexer.input(s), [('STRING_VALUE', s)])
+            self.assert_output(
+                self.lexer.input(s),
+                [('STRING_VALUE', s.strip('"'))]
+            )
 
     def test_comment(self):
         lexer = self.lexer.input("""
@@ -75,7 +78,7 @@ class GraphQLLexerTest(TestCase):
             # lol the whole line commented
             #
         """)
-        self.assert_output(lexer, [('INT_VALUE', 42), ('STRING_VALUE', '""')])
+        self.assert_output(lexer, [('INT_VALUE', 42), ('STRING_VALUE', '')])
 
     def test_illegal_chars(self):
         for s in ('"', '^'):

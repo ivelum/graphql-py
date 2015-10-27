@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from graphql.ast import Document, Query, Field, Argument, FragmentDefinition, \
-    FragmentSpread, NamedType
+    FragmentSpread, NamedType, Variable, VariableDefinition
 from graphql.parser import GraphQLParser
 
 
@@ -140,5 +140,38 @@ class GraphQLParseTest(TestCase):
                     name='DroidFields',
                     selections=[Field(name='primaryFunction')]
                 ),
+            ])
+        )
+
+    def test_variables(self):
+        self.assertEqual(
+            self.parser.parse("""
+                query withVariable($userId: Int = 0, $userName: String) {
+                  user(id: $userId, name: $userName) {
+                    nick
+                  }
+                }
+            """),
+            Document(definitions=[Query(
+                name='withVariable',
+                variable_definitions=[VariableDefinition(
+                    name='userId',
+                    type=NamedType(name='Int'),
+                    default_value=0
+                ), VariableDefinition(
+                    name='userName',
+                    type=NamedType(name='String')
+                )],
+                selections=[Field(
+                    selections=[Field(name='nick')],
+                    name='user',
+                    arguments=[Argument(
+                        name='id',
+                        value=Variable(name='userId'),
+                    ), Argument(
+                        name='name',
+                        value=Variable(name='userName')
+                    )]
+                )])
             ])
         )

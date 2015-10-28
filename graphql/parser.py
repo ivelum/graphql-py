@@ -379,7 +379,7 @@ class GraphQLParser(object):
         """
         p[0] = p[1] + [p[2]]
 
-    def p_variable_list_single(self, p):
+    def p_variable_definition_list_single(self, p):
         """
         variable_definition_list : variable_definition
         """

@@ -94,23 +94,23 @@ class GraphQLParser(object):
 
     def p_operation_definition1(self, p):
         """
-        operation_definition : operation_type name variables directives selection_set
+        operation_definition : operation_type name variable_definitions directives selection_set
         """
         p[0] = self.operation_cls(p[1])(
             selections=p[5],
             name=p[2],
-            variables=p[3],
+            variable_definitions=p[3],
             directives=p[4],
         )
 
     def p_operation_definition2(self, p):
         """
-        operation_definition : operation_type name variables selection_set
+        operation_definition : operation_type name variable_definitions selection_set
         """
         p[0] = self.operation_cls(p[1])(
             selections=p[4],
             name=p[2],
-            variables=p[3],
+            variable_definitions=p[3],
         )
 
     def p_operation_definition3(self, p):
@@ -367,41 +367,41 @@ class GraphQLParser(object):
         """
         p[0] = Argument(name=p[1], value=p[3])
 
-    def p_variables(self, p):
+    def p_variable_definitions(self, p):
         """
-        variables : PAREN_L variable_list PAREN_R
+        variable_definitions : PAREN_L variable_definition_list PAREN_R
         """
         p[0] = p[2]
 
-    def p_variable_list(self, p):
+    def p_variable_definition_list(self, p):
         """
-        variable_list : variable_list variable
+        variable_definition_list : variable_definition_list variable_definition
         """
         p[0] = p[1] + [p[2]]
 
     def p_variable_list_single(self, p):
         """
-        variable_list : variable
+        variable_definition_list : variable_definition
         """
         p[0] = [p[1]]
 
-    def p_variable1(self, p):
+    def p_variable_definition1(self, p):
         """
-        variable : variable_name type default_value
+        variable_definition : DOLLAR name COLON type default_value
         """
-        p[0] = Variable(name=p[1], type=p[2], default_value=p[3])
+        p[0] = VariableDefinition(name=p[2], type=p[4], default_value=p[5])
 
-    def p_variable2(self, p):
+    def p_variable_definition2(self, p):
         """
-        variable : variable_name type
+        variable_definition : DOLLAR name COLON type
         """
-        p[0] = Variable(name=p[1], type=p[2])
+        p[0] = VariableDefinition(name=p[2], type=p[4])
 
-    def p_variable_name(self, p):
+    def p_variable(self, p):
         """
-        variable_name : DOLLAR name
+        variable : DOLLAR name
         """
-        p[0] = p[1]
+        p[0] = Variable(name=p[2])
 
     def p_default_value(self, p):
         """

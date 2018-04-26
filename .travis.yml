@@ -1,10 +1,12 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
+  - 2.7
+  - 3.4
+  - 3.5
+  - 3.6
   - "pypy"
 install:
-  - pip install ply==3.6
+  - pip install ply==3.11
 script: nosetests
 notifications:
   slack: ivelum:m5sGlwz1uEy5sQ32n0kg9lNh

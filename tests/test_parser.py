@@ -175,3 +175,27 @@ class GraphQLParseTest(TestCase):
                 )])
             ])
         )
+
+    def test_arguments(self):
+        self.assertEqual(
+            self.parser.parse("""
+                {
+                  episodes (number: null, isPrequel: false) {
+                    id
+                  }
+                }
+            """),
+            Document(definitions=[Query(
+                selections=[Field(
+                    selections=[Field(name='id')],
+                    name='episodes',
+                    arguments=[Argument(
+                        name='number',
+                        value='null'
+                    ), Argument(
+                        name='isPrequel',
+                        value='false'
+                    )]
+                )])
+            ])
+        )

@@ -25,7 +25,7 @@ setup(
     install_requires=requires,
     license=open('LICENSE').read(),
     zip_safe=False,
-    classifiers=(
+    classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Natural Language :: English',
@@ -33,7 +33,9 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
-    ),
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+    ],
 )
 
 del os.environ['PYTHONDONTWRITEBYTECODE']

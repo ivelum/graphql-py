@@ -143,6 +143,24 @@ class GraphQLParseTest(TestCase):
             ])
         )
 
+    def test_shorthand_vs_query(self):
+        self.assertEqual(
+            self.parser.parse("""
+               query {
+                  hero {
+                    name
+                  }
+               }
+            """),
+            self.parser.parse("""
+               {
+                  hero {
+                    name
+                  }
+               }
+            """),
+        )
+
     def test_variables(self):
         self.assertEqual(
             self.parser.parse("""

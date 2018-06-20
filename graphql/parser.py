@@ -129,6 +129,40 @@ class GraphQLParser(object):
         """
         p[0] = self.operation_cls(p[1])(selections=p[3], name=p[2])
 
+    def p_operation_definition5(self, p):
+        """
+        operation_definition : operation_type variable_definitions directives selection_set
+        """
+        p[0] = self.operation_cls(p[1])(
+            selections=p[4],
+            variable_definitions=p[2],
+            directives=p[3],
+        )
+
+    def p_operation_definition6(self, p):
+        """
+        operation_definition : operation_type variable_definitions selection_set
+        """
+        p[0] = self.operation_cls(p[1])(
+            selections=p[3],
+            variable_definitions=p[2],
+        )
+
+    def p_operation_definition7(self, p):
+        """
+        operation_definition : operation_type directives selection_set
+        """
+        p[0] = self.operation_cls(p[1])(
+            selections=p[3],
+            directives=p[2],
+        )
+
+    def p_operation_definition8(self, p):
+        """
+        operation_definition : operation_type selection_set
+        """
+        p[0] = self.operation_cls(p[1])(selections=p[2])
+
     def p_operation_type(self, p):
         """
         operation_type : QUERY

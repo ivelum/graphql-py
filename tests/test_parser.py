@@ -191,10 +191,10 @@ class GraphQLParseTest(TestCase):
                     name='episodes',
                     arguments=[Argument(
                         name='number',
-                        value='null'
+                        value=None
                     ), Argument(
                         name='isPrequel',
-                        value='false'
+                        value=False
                     )]
                 )])
             ])

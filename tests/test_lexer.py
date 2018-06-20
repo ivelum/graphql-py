@@ -42,13 +42,24 @@ class GraphQLLexerTest(TestCase):
             self.assert_output(self.lexer.input(name), [('NAME', name)])
 
     def test_reserved_words(self):
-        reserved = ('fragment', 'query', 'mutation', 'on',
-                    'true', 'false', 'null')
+        reserved = ('fragment', 'query', 'mutation', 'on')
         for word in reserved:
             self.assert_output(self.lexer.input(word), [(word.upper(), word)])
         # A word made of reserved words should be treated as a name
-        for word in ('queryType', 'mutation42', '_truefalse'):
+        for word in ('queryType', 'mutation42', 'on_fragment'):
             self.assert_output(self.lexer.input(word), [('NAME', word)])
+
+    def test_true(self):
+        self.assert_output(self.lexer.input('true'), [('TRUE', True)])
+        self.assert_output(self.lexer.input('True'), [('NAME', 'True')])
+
+    def test_false(self):
+        self.assert_output(self.lexer.input('false'), [('FALSE', False)])
+        self.assert_output(self.lexer.input('False'), [('NAME', 'False')])
+
+    def test_null(self):
+        self.assert_output(self.lexer.input('null'), [('NULL', None)])
+        self.assert_output(self.lexer.input('Null'), [('NAME', 'Null')])
 
     def test_int(self):
         for val in ('0', '-0', '42', '-42'):

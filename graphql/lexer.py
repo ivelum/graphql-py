@@ -163,14 +163,17 @@ class GraphQLLexer(object):
 
     @TOKEN('true' + not_followed_by_name)
     def t_TRUE(self, t):
+        t.value = True
         return t
 
     @TOKEN('false' + not_followed_by_name)
     def t_FALSE(self, t):
+        t.value = False
         return t
 
     @TOKEN('null' + not_followed_by_name)
     def t_NULL(self, t):
+        t.value = None
         return t
 
     def t_error(self, t):

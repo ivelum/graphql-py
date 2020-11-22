@@ -71,6 +71,10 @@ class Mutation(OperationDefinition):
     pass
 
 
+class Subscription(OperationDefinition):
+    pass
+
+
 class Selection(Node):
     pass
 

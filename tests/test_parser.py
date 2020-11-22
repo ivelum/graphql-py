@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from graphql.ast import Document, Query, Field, Argument, FragmentDefinition, \
-    FragmentSpread, NamedType, Variable, VariableDefinition
+    FragmentSpread, NamedType, Variable, VariableDefinition, Subscription, NonNullType
 from graphql.parser import GraphQLParser
 
 
@@ -215,5 +215,51 @@ class GraphQLParseTest(TestCase):
                         value=False
                     )]
                 )])
+            ])
+        )
+
+    def test_with_subscription(self):
+        self.assertEqual(
+            self.parser.parse("""
+                           subscription onSomething($deviceId: ID!) {
+                             onSomething(deviceId: $deviceId,) {
+                               deviceId
+                               deviceType
+                               datapoints {
+                                id
+                               }
+                             }
+                           }
+                       """),
+            Document(definitions=[
+                Subscription(
+                    name="onSomething",
+                    selections=[
+                        Field(
+                            name="onSomething",
+                            arguments=[Argument(
+                                name="deviceId",
+                                value=Variable(
+                                    name="deviceId"
+                                )
+                            )],
+                            selections=[
+                                Field(
+                                    name="deviceId"
+                                ),
+                                Field(
+                                    name="deviceType"
+                                ),
+                                Field(
+                                    name="datapoints",
+                                    selections=[
+                                        Field(name="id")
+                                    ]
+                                )
+                            ]
+                        )
+                    ],
+                    variable_definitions=[VariableDefinition(name="deviceId", type=NonNullType(type=NamedType(name="ID")))]
+                )
             ])
         )

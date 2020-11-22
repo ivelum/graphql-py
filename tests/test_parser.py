@@ -259,7 +259,16 @@ class GraphQLParseTest(TestCase):
                             ]
                         )
                     ],
-                    variable_definitions=[VariableDefinition(name="deviceId", type=NonNullType(type=NamedType(name="ID")))]
+                    variable_definitions=[
+                        VariableDefinition(
+                            name="deviceId",
+                            type=NonNullType(
+                                type=NamedType(
+                                    name="ID"
+                                )
+                            )
+                        )
+                    ]
                 )
             ])
         )

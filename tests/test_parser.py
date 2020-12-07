@@ -1,7 +1,8 @@
 from unittest import TestCase
 
-from graphql.ast import Document, Query, Field, Argument, FragmentDefinition, \
-    FragmentSpread, NamedType, Variable, VariableDefinition, Subscription, NonNullType
+from graphql.ast import Argument, Document, Field, FragmentDefinition, \
+    FragmentSpread, Mutation, NamedType, NonNullType, Query, Subscription, \
+    Variable, VariableDefinition
 from graphql.parser import GraphQLParser
 
 
@@ -42,6 +43,32 @@ class GraphQLParseTest(TestCase):
                         ],
                         name='user',
                         arguments=[Argument(name='id', value=4)]
+                    )
+                ])
+            ])
+        )
+
+    def test_mutation_shorthand(self):
+        self.assertEqual(
+            self.parser.parse("""
+                mutation {
+                    likeStory(storyID: 12345) {
+                        story {
+                            likeCount
+                        }
+                    }
+                }
+            """),
+            Document(definitions=[
+                Mutation(selections=[
+                    Field(
+                        selections=[
+                            Field(name='story', selections=[
+                                Field(name='likeCount')
+                            ]),
+                        ],
+                        name='likeStory',
+                        arguments=[Argument(name='storyID', value=12345)]
                     )
                 ])
             ])

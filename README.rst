@@ -29,14 +29,14 @@ Usage
 
     parser = GraphQLParser()
     ast = parser.parse("""
-    {
-      user(id: 4) {
-        id
-        name
-        profilePic
-        avatar: profilePic(width: 30, height: 30)
+      query UserQuery {
+        user(id: 4) {
+          id
+          name
+          profilePic
+          avatar: profilePic(width: 30, height: 30)
+        }
       }
-    }
     """)
     print(ast)
 

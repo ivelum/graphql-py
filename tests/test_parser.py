@@ -221,16 +221,16 @@ class GraphQLParseTest(TestCase):
     def test_with_subscription(self):
         self.assertEqual(
             self.parser.parse("""
-                           subscription onSomething($deviceId: ID!) {
-                             onSomething(deviceId: $deviceId,) {
-                               deviceId
-                               deviceType
-                               datapoints {
-                                id
-                               }
-                             }
-                           }
-                       """),
+                subscription onSomething($deviceId: ID!) {
+                    onSomething(deviceId: $deviceId,) {
+                        deviceId
+                        deviceType
+                        datapoints {
+                            id
+                        }
+                    }
+                }
+            """),
             Document(definitions=[
                 Subscription(
                     name="onSomething",
